@@ -65,3 +65,11 @@ grid = process_grid(grid)
 max_length = len(grid[-1])
 
 dp = [[None] * i for i in range(1, max_length + 1)]
+
+dp[-1] = grid[-1]
+
+for i in range(max_length - 2, -1, -1):
+    for j in range(len(dp[i])):
+        dp[i][j] = grid[i][j] + max(dp[i + 1][j], dp[i + 1][j + 1])
+
+print(dp[0][0])
