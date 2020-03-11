@@ -22,3 +22,25 @@ Find the value of d < 1000 for which ^1/[d] contains the longest recurring
 cycle in its decimal fraction part.
 """
 
+
+def find_cycle(d):
+    cycle = []
+    dividends = []
+    curr_string = ""
+    dividend = 10
+    while dividend:
+        while dividend < d:
+            dividend *= 10
+            curr_string += "0"
+        curr_string += str(int(dividend / d))
+        dividend = (dividend % d) * 10
+        if dividends and dividend in dividends:
+            return len(cycle[dividends.index(dividend) :])
+        cycle.append(curr_string)
+        dividends.append(dividend)
+        curr_string = ""
+
+    return 0
+
+
+print(max(range(1, 1000), key=find_cycle))
