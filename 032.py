@@ -16,3 +16,22 @@ HINT: Some products can be obtained in more than one way so be sure to
 only include it once in your sum.
 """
 
+
+def factors(val):
+    return [(i, val // i) for i in range(1, int(val ** 0.5) + 1) if val % i == 0]
+
+
+from itertools import permutations
+
+total_sum = 0
+
+for num_tuple in permutations(range(1, 10), 4):
+
+    for factor, other_factor in factors(int("".join(map(str, num_tuple)))):
+        if set(num_tuple) | set(map(int, set(str(factor)))) | set(
+            map(int, set(str(other_factor)))
+        ) == set(range(1, 10)):
+            total_sum += int("".join(map(str, num_tuple)))
+            break
+
+print(total_sum)
