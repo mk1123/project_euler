@@ -38,10 +38,7 @@ force, and requires a clever method! ;o)
 
 import numpy as np
 from typing import List
-
-
-def process_grid(grid_string: str) -> List[List[int]]:
-    return [[int(y) for y in x.strip().split(" ")] for x in grid_string.split("\n")]
+from utils import process_grid
 
 
 grid = """                          75

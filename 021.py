@@ -15,32 +15,7 @@ Evaluate the sum of all the amicable numbers under 10000.
 """
 from collections import Counter
 from math import sqrt
-
-
-def prime_factorization(n):
-    primes = []
-    while n % 2 == 0:
-        primes.append(2)
-        n //= 2
-    for i in range(3, int(sqrt(n)) + 1, 2):
-        while n % i == 0:
-            primes.append(i)
-            n //= i
-    if n > 2:
-        primes.append(n)
-
-    return Counter(primes)
-
-
-def sum_of_divisors(n):
-    if n in {0, 1}:
-        return 0
-    sum_ = 1
-    prime_factors = prime_factorization(n)
-    for prime in prime_factors:
-        sum_ *= (prime ** (prime_factors[prime] + 1) - 1) // (prime - 1)
-
-    return sum_ - n
+from utils import prime_factorization, sum_of_divisors
 
 
 amicable = {}
@@ -52,7 +27,6 @@ for i in range(10000):
 for i in range(10000):
     new_elem = amicable[i]
     if new_elem < 10000 and new_elem != i and amicable[new_elem] == i:
-        # print(i)
         amicable_sum += i
 
 print(amicable_sum)

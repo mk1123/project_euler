@@ -10,32 +10,7 @@ from 1 to 20?
 """
 import math
 from collections import Counter
-
-
-def sieve(n):
-    arr = [True] * (n - 1)
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if arr[i]:
-            for j in range(2 * i, n + 1, i):
-                arr[j - 2] = False
-    return [i + 2 for i in range(len(arr)) if arr[i]]
-
-
-def prime_factorization(n):
-    primes = sieve(n)
-    counter = 0
-    i = primes[counter]
-    factors = []
-    while i * i <= n:
-        if n % i:
-            counter += 1
-            i = primes[counter]
-        else:
-            n //= i
-            factors.append(i)
-    if n > 1:
-        factors.append(n)
-    return Counter(factors)
+from utils import sieve, prime_factorization
 
 
 def problem(n):
@@ -51,4 +26,3 @@ def problem(n):
 
 
 print(problem(20))
-

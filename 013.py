@@ -108,12 +108,7 @@ Work out the first ten digits of the sum of the following one-hundred
 """
 
 import numpy as np
-
-
-def process_grid(grid_string: str) -> np.ndarray:
-    return np.array(
-        [[int(y) for y in x.strip().split(" ")] for x in grid_string.split("\n")]
-    )
+from utils import process_grid
 
 
 nums = """37107287533902102798797998220837590246510135740250
@@ -219,4 +214,3 @@ nums = """37107287533902102798797998220837590246510135740250
 
 nums = process_grid(nums)
 print(int(str(np.sum(nums))[:10]))
-

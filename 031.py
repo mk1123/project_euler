@@ -14,13 +14,11 @@ It is possible to make -L-2 in the following way:
 How many different ways can -L-2 be made using any number of coins?
 """
 
-denoms = [1, 2, 5, 10, 20, 50, 100, 200]
-stored = [0] * 201
-stored[0] = 1
+from utils import num_ways_coin_change
 
-for coin in denoms:
-    for i in range(coin, 201):
-        stored[i] += stored[i - coin]
+denoms = [1, 2, 5, 10, 20, 50, 100, 200]
+max_curr = 200
+
+stored = num_ways_coin_change(denoms, max_curr)
 
 print(stored[200])
-

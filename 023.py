@@ -24,32 +24,7 @@ sum of two abundant numbers.
 """
 from math import sqrt
 from collections import Counter
-
-
-def prime_factorization(n):
-    primes = []
-    while n % 2 == 0:
-        primes.append(2)
-        n //= 2
-    for i in range(3, int(sqrt(n)) + 1, 2):
-        while n % i == 0:
-            primes.append(i)
-            n //= i
-    if n > 2:
-        primes.append(n)
-
-    return Counter(primes)
-
-
-def sum_of_divisors(n):
-    if n in {0, 1}:
-        return 0
-    sum_ = 1
-    prime_factors = prime_factorization(n)
-    for prime in prime_factors:
-        sum_ *= (prime ** (prime_factors[prime] + 1) - 1) // (prime - 1)
-
-    return sum_ - n
+from utils import sum_of_divisors
 
 
 abundant = set()

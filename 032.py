@@ -15,10 +15,7 @@ identity can be written as a 1 through 9 pandigital.
 HINT: Some products can be obtained in more than one way so be sure to
 only include it once in your sum.
 """
-
-
-def factors(val):
-    return [(i, val // i) for i in range(1, int(val ** 0.5) + 1) if val % i == 0]
+from utils import factors
 
 
 from itertools import permutations
