@@ -15,5 +15,20 @@ of the following expression.
 
     d[1] * d[10] * d[100] * d[1000] * d[10000] * d[100000] * d[1000000]
 """
+from itertools import count
+from math import ceil, log
 
+prod = 1
+interesting_nums = {1, 10, 100, 1000, 10000, 100000, 1000000}
+curr_digit_place = 0
+num_generator = count(start=1)
+num_to_list_of_digits = lambda n: [int(i) for i in str(n)]
 
+while curr_digit_place <= 1000000:
+    next_num = next(num_generator)
+    for digit in num_to_list_of_digits(next_num):
+        curr_digit_place += 1
+        if curr_digit_place in interesting_nums:
+            prod *= digit
+
+print(prod)
