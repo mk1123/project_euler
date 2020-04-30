@@ -1,6 +1,7 @@
 from collections import Counter
 import numpy as np
 import math
+import sympy
 
 
 def sieve(n):
@@ -103,3 +104,7 @@ def num_ways_coin_change(denoms, max_currency):
             stored[i] += stored[i - coin]
 
     return stored
+
+
+def is_prime(n):
+    return sympy.isprime(n)
