@@ -2,6 +2,7 @@ from collections import Counter
 import numpy as np
 import math
 import sympy
+from gmpy import is_square
 
 
 def sieve(n):
@@ -107,4 +108,8 @@ def num_ways_coin_change(denoms, max_currency):
 
 
 def is_prime(n):
-    return sympy.isprime(n)
+    return sympy.isprime(n)∑
+
+
+word_to_score = lambda word: sum(ord(char) - ord("A") + 1 for char in word)
+is_triangle_number = lambda n: is_square(8 * n + 1)

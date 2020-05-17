@@ -15,5 +15,8 @@ value is a triangle number then we shall call the word a triangle word.
 Using words.txt, a 16K text file containing nearly two-thousand common
 English words, how many are triangle words?
 """
+from utils import is_square, word_to_score, is_triangle_number
 
-
+with open("./resources/words.txt") as f:
+    scores = map(word_to_score, f.read().replace('"', "").split(","))
+    print(sum(map(is_triangle_number, scores)))
