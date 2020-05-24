@@ -1,0 +1,5 @@
+gmpy==1.17
+mpmath==1.1.0
+pef==1.1.0
+primefac==1.1
+sympy==1.5.1
