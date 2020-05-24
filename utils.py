@@ -8,6 +8,7 @@ import primefac
 
 
 def sieve(n):
+    """This function should be depracated in favor of gen_primes and it.takewhile."""
     arr = [False, False] + [True] * (n-2)
     for i in range(2, int(math.sqrt(n)) + 1):
         if arr[i]:
