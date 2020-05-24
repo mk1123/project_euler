@@ -8,12 +8,12 @@ import primefac
 
 
 def sieve(n):
-    arr = [True] * (n - 1)
+    arr = [False, False] + [True] * (n-2)
     for i in range(2, int(math.sqrt(n)) + 1):
         if arr[i]:
-            for j in range(2 * i, n + 1, i):
-                arr[j - 2] = False
-    return (i + 2 for i in range(len(arr)) if arr[i])
+            for j in range(2 * i, n, i):
+                arr[j] = False
+    return (i for i in range(len(arr)) if arr[i])
 
 
 def prime_factorization(n):
