@@ -2,8 +2,7 @@ from collections import Counter
 import itertools as it
 import numpy as np
 import math
-import sympy
-from gmpy import is_square
+import gmpy2
 from typing import Iterator, Generator, Any
 import primefac
 
@@ -14,11 +13,11 @@ def sieve(n):
         if arr[i]:
             for j in range(2 * i, n + 1, i):
                 arr[j - 2] = False
-    return [i + 2 for i in range(len(arr)) if arr[i]]
+    return (i + 2 for i in range(len(arr)) if arr[i])
 
 
 def prime_factorization(n):
-    primes = sieve(n)
+    primes = list(sieve(n))
     counter = 0
     i = primes[counter]
     factors = []
@@ -117,7 +116,7 @@ def process_grid(grid_string: str) -> np.ndarray:
     )
 
 
-factors = lambda n: {
+all_factors = lambda n: {
     f for i in range(1, int(n ** 0.5) + 1) if not n % i for f in [i, n // i]
 }
 
@@ -145,17 +144,17 @@ def num_ways_coin_change(denoms, max_currency):
 
 
 def is_prime(n):
-    return sympy.isprime(n)
+    return gmpy2.is_prime(n)
 
 
 word_to_score = lambda word: sum(ord(char) - ord("A") + 1 for char in word)
-is_triangular = lambda n: is_square(8 * n + 1)
+is_triangular = lambda n: gmpy2.is_square(8 * n + 1)
 
 
 def is_pentagonal(n):
     # type: (int) -> bool
     discriminant = 1 + 24 * n
-    return is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 6) == 0
+    return gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 6) == 0
 
 
 def pentagonal_values_generator():
@@ -166,9 +165,13 @@ def pentagonal_values_generator():
 def is_hexagonal(n):
     # type: (int) -> bool
     discriminant = 1 + 8 * n
-    return is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 4) == 0
+    return gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 4) == 0
 
 
 def hexagonal_values_generator():
     # type: () -> Iterator[int]
     return map(lambda x: x * (2 * x - 1), it.count(start=1))
+
+def mod_exp(base, exp, modulus):
+    # type: (int, int, int) -> int
+    return gmpy2.powmod(base, exp, modulus) # type: ignore

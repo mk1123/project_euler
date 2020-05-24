@@ -10,7 +10,7 @@ from 1 to 20?
 """
 import math
 from collections import Counter
-from utils import sieve, prime_factorization
+from utils import prime_factorization
 
 
 def problem(n):

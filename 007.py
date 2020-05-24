@@ -10,4 +10,4 @@ What is the 10001st prime number?
 import math
 from utils import sieve
 
-print(sieve(500000)[10000])
+print(list(sieve(500000))[10000])
