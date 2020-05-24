@@ -21,9 +21,10 @@ Find the sum of all 0 to 9 pandigital numbers with this property.
 """
 
 from itertools import permutations
+from typing import Generator
 
 
-def divisibility_rules(num_string):
+def divisibility_rules(num_string: str) -> bool:
     return not (
         int(num_string[1:4]) % 2
         or int(num_string[2:5]) % 3
@@ -35,7 +36,7 @@ def divisibility_rules(num_string):
     )
 
 
-def generate_0_to_9_pandigital():
+def generate_0_to_9_pandigital() -> Generator:
     for i in range(1, 10):
         for rest_permutation in permutations(set(range(10)).difference({i}), 9):
             yield str(i) + "".join(map(str, rest_permutation))

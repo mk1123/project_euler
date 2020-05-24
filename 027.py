@@ -27,13 +27,13 @@ expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
 
-import sympy
+from utils import is_prime
 
 
 def max_sequence(a, b):
     n = 0
     while True:
-        if sympy.isprime(n ** 2 + a * n + b):
+        if is_prime(n ** 2 + a * n + b):
             n += 1
         else:
             return n + 1

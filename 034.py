@@ -10,7 +10,7 @@ their digits.
 Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 """
 
-from itertools import product, chain
+from itertools import product
 from math import factorial
 
 digits = {5: [3], 6: (3, 4), 7: (4, 5), 8: (5, 6), 9: (6, 7)}

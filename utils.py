@@ -1,8 +1,11 @@
 from collections import Counter
+import itertools as it
 import numpy as np
 import math
 import sympy
 from gmpy import is_square
+from typing import Iterator, Generator, Any
+import primefac
 
 
 def sieve(n):
@@ -29,6 +32,11 @@ def prime_factorization(n):
     if n > 1:
         factors.append(n)
     return Counter(factors)
+
+
+def fast_prime_factorization(n):
+    # type: (int) -> Any
+    return primefac.primefac(n)
 
 
 def gen_primes():
@@ -59,6 +67,35 @@ def gen_primes():
             # multiples of its witnesses to prepare for larger
             # numbers
             #
+            for p in D[q]:
+                D.setdefault(p + q, []).append(p)
+            del D[q]
+
+        q += 1
+
+
+def gen_composites():
+    # type: () -> Generator[int, None, None]
+    """Generate an infinite sequence of composite numbers.
+    Pretty much exactly the same logic as gen_primes."""
+    D = {}
+    q = 2
+
+    while True:
+        if q not in D:
+            # q is a new prime.
+            # Yield it and mark its first multiple that isn't
+            # already marked in previous iterations
+            #
+            D[q * q] = [q]
+        else:
+            # q is composite. D[q] is the list of primes that
+            # divide it. Since we've reached q, we no longer
+            # need it in the map, but we'll mark the next
+            # multiples of its witnesses to prepare for larger
+            # numbers
+            #
+            yield q
             for p in D[q]:
                 D.setdefault(p + q, []).append(p)
             del D[q]
@@ -108,8 +145,30 @@ def num_ways_coin_change(denoms, max_currency):
 
 
 def is_prime(n):
-    return sympy.isprime(n)∑
+    return sympy.isprime(n)
 
 
 word_to_score = lambda word: sum(ord(char) - ord("A") + 1 for char in word)
-is_triangle_number = lambda n: is_square(8 * n + 1)
+is_triangular = lambda n: is_square(8 * n + 1)
+
+
+def is_pentagonal(n):
+    # type: (int) -> bool
+    discriminant = 1 + 24 * n
+    return is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 6) == 0
+
+
+def pentagonal_values_generator():
+    # type: () -> Iterator[int]
+    return map(lambda x: x * (3 * x - 1) // 2, it.count(start=1))
+
+
+def is_hexagonal(n):
+    # type: (int) -> bool
+    discriminant = 1 + 8 * n
+    return is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 4) == 0
+
+
+def hexagonal_values_generator():
+    # type: () -> Iterator[int]
+    return map(lambda x: x * (2 * x - 1), it.count(start=1))

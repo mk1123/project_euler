@@ -11,7 +11,7 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37,
 How many circular primes are there below one million?
 """
 
-from sympy import isprime
+from utils import is_prime
 
 circulars = [None] * 1000001
 total = 0
@@ -21,7 +21,7 @@ for i in range(1, len(circulars)):
         continue
     i_str = str(i)
     rotations = [int(i_str[j:] + i_str[:j]) for j in range(len(i_str))]
-    valid = all([isprime(x) for x in rotations])
+    valid = all([is_prime(x) for x in rotations])
     if valid:
         for prime in set(rotations):
             circulars[prime] = True
