@@ -21,41 +21,44 @@ from typing import Optional, List, Tuple
 
 from utils import gen_primes, is_prime
 
-UPPER_LIMIT = 50000
+UPPER_LIMIT = 1000000
 primes = list(it.takewhile(lambda x: x < UPPER_LIMIT, gen_primes())) # type: List[int]
 
-dp = [(0, 0)] + [(-1, -1)] * UPPER_LIMIT
+temp = 0
+cum_sums = [0]
 
-def largest_prime_smaller_than_index(x):
-    # type: (int) -> int
-    return bisect.bisect_right(primes, x) - 1
+for prime in primes:
+    temp += prime
+    cum_sums.append(temp)
     
+longest_sequence = 0
+max_value = 0
 
-def dp_func(x):
-    # type: (int) -> Tuple[int, int]
-    if x < 0:
-        return (0, 0)
+for i in range(len(primes) - 1, -1, -1):
+    curr_prime = primes[i]
     
-    if dp[x] != (-1, -1):
-        return dp[x]
+    if curr_prime <= cum_sums[longest_sequence]:
+        break
     
-    print(x)
+    start = 0
+    end = longest_sequence
     
-    max_length = -2
-    last_prime = -2
+    sum_ = cum_sums[end]
     
-    for i in range(largest_prime_smaller_than_index(x) + 1):
-        curr_prime = primes[i]
-        prev_dp_length, prev_dp_largest = dp_func(x - curr_prime)
-        if prev_dp_largest in (primes[i-1], 0):
-            if prev_dp_length + 1 > max_length:
-                max_length = prev_dp_length + 1
-                last_prime = curr_prime
-                
-    return_val = (max_length, last_prime)
-
-    dp[x] = return_val
-    return return_val
-
-print(max(primes, key=lambda x: dp_func(x)[0]))
+    while sum_ != curr_prime:
+        if sum_ < curr_prime:
+            end += 1
+        else:
+            start += 1
+        
+        if end - start <= longest_sequence:
+            break
+        
+        sum_ = cum_sums[end] - cum_sums[start]
+        
+    if sum_ == curr_prime:
+        longest_sequence = end - start
+        max_value = curr_prime
+        
+print(max_value)
     
