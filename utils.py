@@ -5,11 +5,13 @@ import math
 import gmpy2
 from typing import Iterator, Generator, Any
 import primefac
+import operator as op
+from functools import reduce
 
 
 def sieve(n):
     """This function should be depracated in favor of gen_primes and it.takewhile."""
-    arr = [False, False] + [True] * (n-2)
+    arr = [False, False] + [True] * (n - 2)
     for i in range(2, int(math.sqrt(n)) + 1):
         if arr[i]:
             for j in range(2 * i, n, i):
@@ -155,7 +157,9 @@ is_triangular = lambda n: gmpy2.is_square(8 * n + 1)
 def is_pentagonal(n):
     # type: (int) -> bool
     discriminant = 1 + 24 * n
-    return gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 6) == 0
+    return (
+        gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 6) == 0
+    )
 
 
 def pentagonal_values_generator():
@@ -166,13 +170,24 @@ def pentagonal_values_generator():
 def is_hexagonal(n):
     # type: (int) -> bool
     discriminant = 1 + 8 * n
-    return gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 4) == 0
+    return (
+        gmpy2.is_square(discriminant) and ((int(math.sqrt(discriminant)) + 1) % 4) == 0
+    )
 
 
 def hexagonal_values_generator():
     # type: () -> Iterator[int]
     return map(lambda x: x * (2 * x - 1), it.count(start=1))
 
+
 def mod_exp(base, exp, modulus):
     # type: (int, int, int) -> int
-    return gmpy2.powmod(base, exp, modulus) # type: ignore
+    return gmpy2.powmod(base, exp, modulus)  # type: ignore
+
+
+def ncr(n, r):
+    # type: (int, int) -> int
+    r = min(r, n - r)
+    numer = reduce(op.mul, range(n, n - r, -1), 1)
+    denom = reduce(op.mul, range(1, r + 1), 1)
+    return numer // denom
