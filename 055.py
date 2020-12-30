@@ -33,4 +33,20 @@ NOTE: Wording was modified slightly on 24 April 2007 to emphasise the
 theoretical nature of Lychrel numbers.
 """
 
+from utils import is_palindrome, reverse_num
+
+total_lychrel = 0
+
+for i in range(1, 10000):
+    curr_num = i
+    is_lychrel = True
+    for _ in range(50):
+        curr_num += reverse_num(curr_num)
+        if is_palindrome(curr_num):
+            is_lychrel = False
+            break
+    if is_lychrel:
+        total_lychrel += 1
+
+print(total_lychrel)
 

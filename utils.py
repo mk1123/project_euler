@@ -191,3 +191,23 @@ def ncr(n, r):
     numer = reduce(op.mul, range(n, n - r, -1), 1)
     denom = reduce(op.mul, range(1, r + 1), 1)
     return numer // denom
+
+
+from math import log10, floor
+from typing import cast
+
+
+def reverse_num(num: int) -> int:
+    if num < 10:
+        return num
+    return cast(int, 10 ** floor(log10(num)) * (num % 10) + reverse_num(num // 10))
+
+
+def is_palindrome(num: int) -> bool:
+    return num == reverse_num(num)
+
+
+def digital_sum(num: int) -> int:
+    if num < 10:
+        return num
+    return num % 10 + digital_sum(num // 10)
