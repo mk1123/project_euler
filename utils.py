@@ -146,8 +146,8 @@ def num_ways_coin_change(denoms, max_currency):
     return stored
 
 
-def is_prime(n):
-    return gmpy2.is_prime(n)
+def is_prime(n: int) -> bool:
+    return cast(bool, gmpy2.is_prime(n))
 
 
 word_to_score = lambda word: sum(ord(char) - ord("A") + 1 for char in word)
