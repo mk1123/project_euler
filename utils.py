@@ -175,6 +175,16 @@ def is_hexagonal(n):
     )
 
 
+def is_heptagonal(n: int) -> bool:
+    K = (3 + math.sqrt(40 * n + 9)) / 10
+    return int(K) == K
+
+
+def is_octogonal(n: int) -> bool:
+    K = (2 + math.sqrt(12 * n + 4)) / 6
+    return int(K) == K
+
+
 def hexagonal_values_generator():
     # type: () -> Iterator[int]
     return map(lambda x: x * (2 * x - 1), it.count(start=1))
@@ -211,3 +221,28 @@ def digital_sum(num: int) -> int:
     if num < 10:
         return num
     return num % 10 + digital_sum(num // 10)
+
+
+def triangular_generator() -> Iterator[int]:
+    return map(lambda n: n * (n + 1) // 2, it.count())
+
+
+def square_generator() -> Iterator[int]:
+    return map(lambda n: n * n, it.count())
+
+
+def pentagonal_generator() -> Iterator[int]:
+    return map(lambda n: (3 * n ** 2 - n) // 2, it.count())
+
+
+def hexagonal_generator() -> Iterator[int]:
+    return map(lambda n: 2 * n ** 2 - n, it.count())
+
+
+def heptagonal_generator() -> Iterator[int]:
+    return map(lambda n: (5 * n ** 2 - 3 * n) // 2, it.count())
+
+
+def octogonal_generator() -> Iterator[int]:
+    return map(lambda n: (3 * n ** 2 - 2 * n), it.count())
+
