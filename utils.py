@@ -3,7 +3,7 @@ import itertools as it
 import numpy as np
 import math
 import gmpy2
-from typing import Iterator, Generator, Any
+from typing import Iterator, Generator, Any, List, Tuple
 import primefac
 import operator as op
 from functools import reduce
@@ -246,3 +246,12 @@ def heptagonal_generator() -> Iterator[int]:
 def octogonal_generator() -> Iterator[int]:
     return map(lambda n: (3 * n ** 2 - 2 * n), it.count())
 
+
+def contfrac_to_frac(seq: List[int]) -> Tuple[int, int]:
+    """ Convert the simple continued fraction in `seq` 
+        into a fraction, num / den
+    """
+    num, den = 1, 0
+    for u in reversed(seq):
+        num, den = den + num * u, num
+    return num, den

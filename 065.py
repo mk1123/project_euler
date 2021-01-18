@@ -51,4 +51,25 @@ Find the sum of digits in the numerator of the 100th convergent of the
 continued fraction for e.
 """
 
+from itertools import islice
+from typing import Generator, List, Tuple
+from sympy import Rational
+
+from utils import digital_sum, contfrac_to_frac
+
+
+def e_continued_fraction_expansion() -> Generator[int, None, None]:
+    yield 2
+    yield 1
+    yield 2
+    i = 2
+    while True:
+        yield 1
+        yield 1
+        yield i * 2
+        i += 1
+
+
+num, dom = contfrac_to_frac(list(islice(e_continued_fraction_expansion(), 100)))
+print(digital_sum(num))
 
