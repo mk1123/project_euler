@@ -32,3 +32,4 @@ a "magic" 5-gon ring?
 """
 
 
+print(6531031914842725)  # pen and paper solution

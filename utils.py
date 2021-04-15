@@ -4,6 +4,7 @@ import numpy as np
 import math
 import gmpy2
 from typing import Iterator, Generator, Any, List, Tuple
+import sympy
 import primefac
 import operator as op
 from functools import reduce
@@ -255,3 +256,11 @@ def contfrac_to_frac(seq: List[int]) -> Tuple[int, int]:
     for u in reversed(seq):
         num, den = den + num * u, num
     return num, den
+
+
+def totientrange(a: int, b: int) -> List[int]:
+    return sympy.sieve.totientrange(a, b)
+
+
+def is_permutation(a: int, b: int) -> bool:
+    return Counter(str(a)) == Counter(str(b))
